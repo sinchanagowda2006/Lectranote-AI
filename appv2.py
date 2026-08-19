@@ -110,6 +110,8 @@ youtube_link = st.text_input("📺 Paste YouTube Lecture Link")
 # -----------------------------
 # Get Transcript
 # -----------------------------
+st.write("yt-dlp version:", yt_dlp.version.__version__)
+
 if st.button("📄 Get Lecture Transcript"):
     if youtube_link.strip() == "":
         st.warning("Please paste a YouTube link.")
