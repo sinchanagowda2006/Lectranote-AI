@@ -125,10 +125,15 @@ if st.button("📄 Get Lecture Transcript"):
                 "noplaylist": True,
             }
 
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(youtube_link, download=True)
-                audio_file = ydl.prepare_filename(info)
+           try:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(youtube_link, download=True)
+        audio_file = ydl.prepare_filename(info)
 
+except Exception as e:
+    st.error("YouTube download failed:")
+    st.code(str(e))
+    st.stop()
         with st.spinner("Transcribing lecture..."):
 
             result = model.transcribe(audio_file)
