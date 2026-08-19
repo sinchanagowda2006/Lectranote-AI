@@ -111,14 +111,10 @@ youtube_link = st.text_input("📺 Paste YouTube Lecture Link")
 # Get Transcript
 # -----------------------------
 if st.button("📄 Get Lecture Transcript"):
-
     if youtube_link.strip() == "":
         st.warning("Please paste a YouTube link.")
-
     else:
-
-               with st.spinner("Downloading lecture audio..."):
-
+        with st.spinner("Downloading lecture audio..."):
             ydl_opts = {
                 "format": "bestaudio/best",
                 "outtmpl": "lecture_audio.%(ext)s",
@@ -141,10 +137,11 @@ if st.button("📄 Get Lecture Transcript"):
                 st.error("YouTube download failed:")
                 st.code(str(e))
                 st.stop()
-        with st.spinner("Transcribing lecture..."):
 
+        with st.spinner("Transcribing lecture..."):
             result = model.transcribe(audio_file)
             st.session_state["lecture_text"] = result["text"]
+
 # -----------------------------
 # Show Transcript
 # -----------------------------
