@@ -115,19 +115,32 @@ if st.button("📄 Get Lecture Transcript"):
         st.warning("Please paste a YouTube link.")
     else:
         with st.spinner("Downloading lecture audio..."):
+
             ydl_opts = {
                 "format": "bestaudio/best",
                 "outtmpl": "lecture_audio.%(ext)s",
                 "noplaylist": True,
                 "quiet": True,
                 "no_warnings": True,
-                "extractor_args": {
-                    "youtube": {
-                        "player_client": ["android", "web"]
-                    }
-                },
+                "force_ipv4": True,
             }
 
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(
+                        youtube_link,
+                        download=True
+                    )
+                    audio_file = ydl.prepare_filename(info)
+
+            except Exception as e:
+                st.error("YouTube download failed:")
+                st.code(str(e))
+                st.stop()
+
+        with st.spinner("Transcribing lecture..."):
+            result = model.transcribe(audio_file)
+            st.session_state["lecture_text"] = result["text"]
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(youtube_link, download=True)
