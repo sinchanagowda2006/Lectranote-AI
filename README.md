@@ -39,3 +39,4 @@ streamlit run appv2.py
 
 Developed by **Sinchana**.
 
+Deployment update
