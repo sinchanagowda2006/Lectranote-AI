@@ -38,3 +38,4 @@ streamlit run appv2.py
 ## 👨‍💻 Author
 
 Developed by **Sinchana**.
+
