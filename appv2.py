@@ -117,12 +117,19 @@ if st.button("📄 Get Lecture Transcript"):
 
     else:
 
-        with st.spinner("Downloading lecture audio..."):
+               with st.spinner("Downloading lecture audio..."):
 
             ydl_opts = {
                 "format": "bestaudio/best",
                 "outtmpl": "lecture_audio.%(ext)s",
                 "noplaylist": True,
+                "quiet": True,
+                "no_warnings": True,
+                "extractor_args": {
+                    "youtube": {
+                        "player_client": ["android", "web"]
+                    }
+                },
             }
 
             try:
@@ -134,7 +141,6 @@ if st.button("📄 Get Lecture Transcript"):
                 st.error("YouTube download failed:")
                 st.code(str(e))
                 st.stop()
-
         with st.spinner("Transcribing lecture..."):
 
             result = model.transcribe(audio_file)
