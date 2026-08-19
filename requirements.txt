@@ -1,5 +1,5 @@
 streamlit
-yt-dlp
+yt-dlp[default]
 openai-whisper
 groq
 reportlab
