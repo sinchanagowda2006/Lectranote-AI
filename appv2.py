@@ -2,8 +2,8 @@ import streamlit as st
 import yt_dlp
 import whisper
 import json
+import os
 from groq import Groq
-from config import GROQ_API_KEY
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
@@ -76,8 +76,7 @@ LectraNote AI helps you study YouTube lectures using AI.
 # -----------------------------
 # Configure Groq
 # -----------------------------
-client = Groq(api_key=GROQ_API_KEY)
-
+client = Groq(api_key=os.environ["GROQ_API_KEY"])
 # -----------------------------
 # Load Whisper
 # -----------------------------
